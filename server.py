@@ -1,7 +1,8 @@
 from fastapi import FastAPI, Body
 from pydantic import BaseModel
 
-from part3 import predictCrop as predictCropSuitability
+from part3.part3 import predictCrop as predictCropSuitability
+
 
 class CropData(BaseModel):
     n: int
