@@ -36,7 +36,7 @@ class imageModel:
     image_model = Model(inputs = vgg.input, outputs = FC_Head)
 
     # copy relative path and load weights
-    image_model.load_weights("/Users/dylanmoraes/Documents/GitHub/IADS/part1/wheat_tomato_disease_prediction_model_weights.h5")
+    image_model.load_weights(r"C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part1\wheat_tomato_disease_prediction_model_weights.h5")
 
     return image_model
 
