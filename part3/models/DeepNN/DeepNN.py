@@ -1,4 +1,4 @@
-import models.DeepNN.cropRecDataFrame as crdf
+import part3.models.DeepNN.cropRecDataFrame as crdf
 import tensorflow as tf
 import pandas as pd
 import numpy as np
@@ -14,7 +14,7 @@ class cropRecModel:
     data = np.array([[40,60,20,25,50,31.5,60]])
     self.model.predict(data)
     
-    self.model.load_weights(r"C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part3\models\DeepNN\Crop_Recommender_weights.h5")
+    self.model.load_weights(r"part3/models/DeepNN/Crop_Recommender_weights.h5")
 
   def gen_model(self):
     model = tf.keras.models.Sequential([

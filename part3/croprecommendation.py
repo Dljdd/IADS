@@ -8,7 +8,7 @@ from sklearn import metrics
 from sklearn.model_selection import cross_val_score
 from collections import Counter
 import pickle
-from models.DeepNN.DeepNN import cropRecModel
+from part3.models.DeepNN.DeepNN import cropRecModel
 
 NNmodel = cropRecModel()
 
@@ -26,13 +26,13 @@ def predictCrop(n :int, p :int, k :int, temperature :int, humidity: int, ph:floa
 }
 
     """
-    with open(r'C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part3\models\KNN.pkl', 'rb') as f:
+    with open(r'part3/models/KNN.pkl', 'rb') as f:
         KNN = pickle.load(f)
-    with open(r'C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part3\models\NaiveBayes.pkl', 'rb') as f:
+    with open(r'part3/models/NaiveBayes.pkl', 'rb') as f:
         NB = pickle.load(f)
-    with open(r'C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part3\models\RandomForest.pkl', 'rb') as f:
+    with open(r'part3/models/RandomForest.pkl', 'rb') as f:
         RF = pickle.load(f)
-    with open(r'C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part3\models\SVMClassifier.pkl', 'rb') as f:
+    with open(r'part3/models/SVMClassifier.pkl', 'rb') as f:
         SVM = pickle.load(f)
     # Create input data array 
     data = np.array([[n, p, k, temperature, humidity, ph, rainfall]])

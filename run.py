@@ -2,6 +2,8 @@ import streamlit as st
 import numpy as np 
 import pandas as pd
 from PIL import Image
+import requests
+
 
 st.set_page_config(page_title="Integrated Ag Decision App", layout="wide")
 
@@ -56,15 +58,28 @@ elif page == "Crop Recommendation":
     n = st.number_input("Enter the Nitrogen Content") 
     p = st.number_input("Enter the Phosphorous Content") 
     k = st.number_input("Enter the Potassium Content") 
-
-    temperature = st.slider("Select Average Temperature",0.0,40.0,(10.0,30.0),0.5)  
-    humidity = st.slider("Select Humidity %",0,100, (50,80),10)
+    ph = st.number_input("Enter the pH Level of the soil") 
+    temperature = st.number_input("Enter the Average Temperature")  
+    humidity = st.number_input("Enter the Humidity %")
     rain = st.number_input("Please enter the amount of rainfall") 
 
+    pred_crop = ""
     
-    # Dummy prediction 
-    crops = ["Rice","Wheat","Maize","Sugarcane"]
-    pred_crop = np.random.choice(crops)
+    if st.button("Predict Crop"):
+        url = "http://localhost:8000/predict"
+        payload = {
+            "n": n,
+            "p": p, 
+            "k": k,
+            "temp": temperature,
+            "humidity": humidity, 
+            "ph": ph, 
+            "rainfall": rain
+        }
+        response = requests.post(url, json=payload).json()
+        pred_crop = response["predicted_crop"]
+
+    # Output prediction
     
     # Output
     st.subheader("Recommended crops:")
@@ -79,7 +94,7 @@ elif page == "Disease Detection":
         st.image(image,width=300)    
         
     # Dummy prediction         
-    classes = ["Healthy","Blight","Rust","Scab","Mildew","Mosaic"]
+    classes = ["Healthy Tomato","Blight"]
     pred_class = np.random.choice(classes)
     
     # Output  

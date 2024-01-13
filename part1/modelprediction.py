@@ -7,5 +7,5 @@ def makePrediction(image_dir):
     print(imgModel.predict_on_image(image_dir))
 
 # placeholder way to load image
-image_dir = r"C:\Users\ozada\OneDrive\Documents\sem 4\python\Github\IADS\part1\test images\wheat leaf septoria (1).JPG"
+image_dir = r"part1/test images"
 makePrediction(image_dir)
