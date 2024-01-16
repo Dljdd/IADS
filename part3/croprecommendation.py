@@ -55,7 +55,7 @@ def predictCrop(n :int, p :int, k :int, temperature :int, humidity: int, ph:floa
     else:
       return vote_counts.most_common(1)[0][0]
 
-prediction = predictCrop(77, 49, 42, 20, 82, 6.5, 202)
-print(prediction)
+# prediction = predictCrop(77, 49, 42, 20, 82, 6.5, 202)
+# print(prediction)
 
 
