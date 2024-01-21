@@ -15,8 +15,12 @@ class CropData(BaseModel):
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 @app.post("/predict")
-def predict_crop(data: CropData = Body(...)):
+async def predict_crop(data: CropData = Body(...)):
     """
     Example Json:
         {

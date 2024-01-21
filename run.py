@@ -66,7 +66,7 @@ elif page == "Crop Recommendation":
     pred_crop = ""
     
     if st.button("Predict Crop"):
-        url = "http://localhost:8000/predict"
+        url = "https://pred-test.onrender.com/predict"
         payload = {
             "n": n,
             "p": p, 
