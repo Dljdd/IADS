@@ -90,9 +90,17 @@ elif page == "Disease Detection":
     st.header("Disease Detection") 
     
     image = st.file_uploader("Upload Image",type=["jpeg","jpg","png"])
+    print(type(image))
     if image is not None:
-        st.image(image,width=300)    
-        
+        st.image(image,width=300)
+    if st.button("Identify Disease"):
+        url = "https://pred-test.onrender.com/identify_disease"
+        payload = {
+            "img_path": "nn"
+        }
+        response = requests.post(url, json=payload).json()
+        pred_crop = response["predicted_crop"]    
+    
     # Dummy prediction         
     classes = ["Healthy Tomato","Blight"]
     pred_class = np.random.choice(classes)
