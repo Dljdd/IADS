@@ -104,25 +104,39 @@ elif page == "Disease Detection":
         pred_crop = response["predicted_crop"]    
     
     # Dummy prediction         
-    classes = ["Healthy Tomato","Blight"]
-    pred_class = np.random.choice(classes)
+    # classes = ["Healthy Tomato","Blight"]
+    # pred_class = np.random.choice(classes)
     
     # Output  
-    st.subheader("Predicted Disease:")
-    st.write(pred_class)
+        st.subheader("Predicted Disease:")
+        st.write(pred_crop)
     
 elif page == "Profitability Analysis":
-   
+
     st.header("Profitability Analysis")  
-    
+
     # Inputs
-    area = st.number_input("Enter farm area (in hectares)",0.0,20.0,1.0) 
+    area = st.number_input("Enter farm area (in hectares)",0.0,20.0,1.0)
     crop = st.selectbox("Select target crop",["Rice","Wheat","Sugarcane"])
     market_rate = st.number_input("Enter expected market rate per kg",0.0,100.0,10.0)
-    
-    # Dummy prediction  
-    profit = area * market_rate * np.random.randint(1000,5000)
-    
-    # Output
-    st.subheader("Predicted Profit:")
-    st.write("Rs.",int(profit))
+
+    # Crop yield estimates (kg/hectare)
+    if crop == "Rice":
+        yield_estimate = 50000 
+    elif crop == "Wheat":
+        yield_estimate = 30000
+    else:
+        yield_estimate = 70000
+
+    # Calculate total yield
+    total_yield = area * yield_estimate
+
+    # Production costs
+    costs = area * 25000 # Rs 25,000 per hectare
+
+    # Calculate profit
+    profit = total_yield * market_rate - costs
+
+    if st.button("Estimate Profit"):
+        st.subheader("Estimated Profit:")
+        st.write("Rs.", int(profit))
