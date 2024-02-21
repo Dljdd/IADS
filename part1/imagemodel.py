@@ -40,9 +40,9 @@ class imageModel:
 
     return image_model
 
-  def convert_image_to_array(self, image_dir):
+  def convert_image_to_array(self, image):
     try:
-      image = cv2.imread(image_dir)
+      # image = cv2.imread(image_dir)
       if image is not None:
         image = cv2.resize(image, (224,224)) 
         image_array =  img_to_array(image)

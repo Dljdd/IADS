@@ -3,6 +3,8 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 import requests
+from part1.imagemodel import imageModel
+import cv2
 
 uploaded_image = None
 
@@ -91,23 +93,17 @@ elif page == "Disease Detection":
     st.header("Disease Detection") 
     
     image = st.file_uploader("Upload Image",type=["jpeg","jpg","png"])
-    print(type(image))
-    if image is not None:
-        uploaded_image = image
-        st.image(image,width=300)
-    if st.button("Identify Disease"):
-        url = "https://pred-test.onrender.com/identify_disease"
-        payload = {
-            "img_path": "streamlit.runtime.uploaded_file_manager.UploadedFile"
-        }
-        response = requests.post(url, json=payload).json()
-        pred_crop = response["predicted_crop"]    
     
-    # Dummy prediction         
-    # classes = ["Healthy Tomato","Blight"]
-    # pred_class = np.random.choice(classes)
-    
-    # Output  
+    if st.button("Identify Disease") and image is not None:
+
+        image_content = image.read()
+
+        img_array = np.asarray(bytearray(image_content), dtype=np.uint8)
+        img = cv2.imdecode(img_array, 1) 
+
+        imgModel = imageModel()
+        pred_crop =  imgModel.predict_on_image(img)
+        
         st.subheader("Predicted Disease:")
         st.write(pred_crop)
     
