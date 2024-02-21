@@ -1,4 +1,4 @@
-from imagemodel import imageModel
+from part1.imagemodel import imageModel
 # import ssl 
 # ssl._create_default_https_context = ssl._create_unverified_context
 

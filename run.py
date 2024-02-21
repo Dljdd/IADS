@@ -5,13 +5,15 @@ from PIL import Image
 import requests
 from part1.imagemodel import imageModel
 import cv2
+import random
 
 uploaded_image = None
+crops = ['Wheat', 'Rice', 'Maize', 'Sugarcane', 'Cotton', 'Mothbeans', 'Tomato']
 
 st.set_page_config(page_title="Integrated Ag Decision App", layout="wide")
 
 page = st.sidebar.selectbox("Select page", 
-                            ("Introduction","Crop Recommendation", 
+                            ("Introduction","Vision", "Crop Recommendation", 
                              "Disease Detection","Profitability Analysis"))
 
 if page == "Introduction":
@@ -52,6 +54,17 @@ if page == "Introduction":
             st.write("""Provides cultivation costs, expected yields and 
                   profitability forecasts across different crops tailored to the 
                 individual farm size, soil quality and other parameters.""")
+elif page == "Vision":
+    st.header("Our Vision")
+    st.image("landing-iot-devices.jpeg", width=800)
+    st.header("Use of IoT Devices")
+    st.write("""
+     The IoT devices that the system will leverage include:
+
+Soil sensors - Measure moisture, temperature and pH levels in real-time across the field. These metrics indicate the health and nutrition levels of the soil. Soil that is too dry or too wet, too cold or too hot, or with a poor pH balance negatively impacts crops. Integrating these insights allows for corrective recommendations to farmers on irrigation, fertilizers etc.\n
+Weather stations - Provide hyperlocal weather data including temperature, rainfall and humidity levels. This will be fed into forecasting models to accurately predict yield outcomes, disease risks, and other crop patterns for an area. Continuous updates to weather trends also enable dynamic recommendations to farmers.\n
+Leaf sensors - Can detect the early onset of diseases, pest attacks or nutritional deficiencies in plants by measuring chlorophyll content, water levels and changes to cellular structure in real time. The key benefit is that plant infections can be detected before physical symptoms appear, allowing the system to recommend preventative treatment.\n
+By assimilating data from multiple sensor types to create a digital profile of the farm, the system can run analytics to derive preventative and prescriptive actions - thereby driving more informed decision making. Sensor integration is crucial to achieving precision, efficiency and profitability in agriculture.""")
 
 elif page == "Crop Recommendation":
     st.header("Crop Recommendation")
@@ -85,7 +98,11 @@ elif page == "Crop Recommendation":
     # Output prediction
     
     # Output
+    reco = random.choice(crops) 
+
+     # Display the recommendation
     st.subheader("Recommended crops:")
+    # st.write(f'Recommended crop: {reco}')
     st.write(pred_crop)
     
 elif page == "Disease Detection":
@@ -95,7 +112,7 @@ elif page == "Disease Detection":
     image = st.file_uploader("Upload Image",type=["jpeg","jpg","png"])
     
     if st.button("Identify Disease") and image is not None:
-
+        st.image(image, width=300)
         image_content = image.read()
 
         img_array = np.asarray(bytearray(image_content), dtype=np.uint8)
