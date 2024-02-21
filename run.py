@@ -4,6 +4,7 @@ import pandas as pd
 from PIL import Image
 import requests
 
+uploaded_image = None
 
 st.set_page_config(page_title="Integrated Ag Decision App", layout="wide")
 
@@ -92,11 +93,12 @@ elif page == "Disease Detection":
     image = st.file_uploader("Upload Image",type=["jpeg","jpg","png"])
     print(type(image))
     if image is not None:
+        uploaded_image = image
         st.image(image,width=300)
     if st.button("Identify Disease"):
         url = "https://pred-test.onrender.com/identify_disease"
         payload = {
-            "img_path": "nn"
+            "img_path": "streamlit.runtime.uploaded_file_manager.UploadedFile"
         }
         response = requests.post(url, json=payload).json()
         pred_crop = response["predicted_crop"]    

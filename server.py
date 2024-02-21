@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 #from part3.part3 import predictCrop as predictCropSuitability
 from part3.croprecommendation import predictCrop
-
+from part1.modelprediction import makePrediction
 class CropData(BaseModel):
     n: float
     p: float
@@ -49,3 +49,11 @@ async def predict_crop(data: CropData = Body(...)):
     prediction = predictCrop(n, p, k, temp, humidity, ph, rainfall)
     prediction_str = str(prediction)
     return {"predicted_crop": prediction_str}
+
+@app.post("/identify_disease")
+async def identify_disease(img_path):
+    """
+    Example Json file
+    """
+    pred = makePrediction(img_path)
+    return {"predicted_disease": f"{pred}"}
